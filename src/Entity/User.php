@@ -47,6 +47,11 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="userId", cascade={"persist", "remove"})
+     */
+    private $profil;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +150,23 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(Profil $profil): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profil->getUserId() !== $this) {
+            $profil->setUserId($this);
+        }
+
+        $this->profil = $profil;
 
         return $this;
     }
