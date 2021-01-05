@@ -7,8 +7,15 @@ use App\Repository\CursusFollowedRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *          "get" ={"path"="/cursusFollowed"}
+ *      }, 
+ *  itemOperations={
+ *          "get" ={"path"="/cursusFollowed/{id}"}
+ *      }
+ * )
  */
 class CursusFollowed
 {

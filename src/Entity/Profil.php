@@ -2,13 +2,26 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfilRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProfilRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *          "get" ={"path"="/profil"}
+ *      }, 
+ *  itemOperations={
+ *          "get" ={"path"="/profil/{id}"}
+ *      },
+ *  itemOperations={
+ *          "put" ={"path"="/profil/{id}"}
+ *      }
+ * )
+* @ApiFilter(DateFilter::class, properties={"lastupdate"})
  */
 class Profil
 {
@@ -54,6 +67,11 @@ class Profil
      * @ORM\JoinColumn(nullable=false)
      */
     private $userId;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $lastupdate;
 
     public function getId(): ?int
     {
@@ -140,6 +158,18 @@ class Profil
     public function setUserId(User $userId): self
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getLastupdate(): ?\DateTimeImmutable
+    {
+        return $this->lastupdate;
+    }
+
+    public function setLastupdate(\DateTimeImmutable $lastupdate): self
+    {
+        $this->lastupdate = $lastupdate;
 
         return $this;
     }

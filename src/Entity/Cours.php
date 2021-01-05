@@ -9,8 +9,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=CoursRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *          "get" ={"path"="/cours"}
+ *      }, 
+ *  itemOperations={
+ *          "get" ={"path"="/cours/{id}"}
+ *      }
+ * )
  */
 class Cours
 {
@@ -61,15 +68,6 @@ class Cours
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CursusContent::class, mappedBy="coursId", orphanRemoval=true)
-     */
-    private $cursusContents;
-
-    public function __construct()
-    {
-        $this->cursusContents = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
