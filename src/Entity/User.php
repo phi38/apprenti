@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,6 +53,16 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="userId", cascade={"persist", "remove"})
      */
     private $profil;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CursusFollowed::class, mappedBy="userId", orphanRemoval=true)
+     */
+    private $cursusFollowed;
+
+    public function __construct()
+    {
+        $this->cursusFollowed = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +179,36 @@ class User implements UserInterface
         }
 
         $this->profil = $profil;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CursusFollowed[]
+     */
+    public function getCursusFollowed(): Collection
+    {
+        return $this->cursusFollowed;
+    }
+
+    public function addCursusFollowed(CursusFollowed $cursusFollowed): self
+    {
+        if (!$this->cursusFollowed->contains($cursusFollowed)) {
+            $this->cursusFollowed[] = $cursusFollowed;
+            $cursusFollowed->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCursusFollowed(CursusFollowed $cursusFollowed): self
+    {
+        if ($this->cursusFollowed->removeElement($cursusFollowed)) {
+            // set the owning side to null (unless already changed)
+            if ($cursusFollowed->getUserId() === $this) {
+                $cursusFollowed->setUserId(null);
+            }
+        }
 
         return $this;
     }
