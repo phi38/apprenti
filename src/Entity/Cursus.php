@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CursusRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CursusRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
+ * @ORM\Entity(repositoryClass=CursusRepository::class)
  * @ApiResource(
  *  collectionOperations={
  *          "get" ={"path"="/cursus"}
@@ -15,8 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  *          "get" ={"path"="/cursus/{id}"}
  *      }
  * )
- * @ORM\Entity(repositoryClass=CursusRepository::class)
- */
+ * @ApiFilter(SearchFilter::class,  properties={"level":"exact"})
+ **/
 class Cursus
 {
     /**
