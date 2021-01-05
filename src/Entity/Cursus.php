@@ -7,6 +7,7 @@ use App\Repository\CursusRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CursusRepository::class)
@@ -19,6 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      }
  * )
  * @ApiFilter(SearchFilter::class,  properties={"level":"exact"})
+ * @ApiFilter(RangeFilter::class, properties={"level"})
  **/
 class Cursus
 {
