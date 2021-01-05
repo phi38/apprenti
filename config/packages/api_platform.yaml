@@ -1,4 +1,12 @@
 api_platform:
+    # The title of the API.
+    title: 'API for parcours Sax Application'
+
+    # The description of the API.
+    description: 'End points needed for Application'
+
+    # The version of the API.
+    version: '1.0.0'
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:
