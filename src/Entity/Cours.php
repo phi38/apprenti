@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,16 @@ class Cours
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CursusContent::class, mappedBy="coursId", orphanRemoval=true)
+     */
+    private $cursusContents;
+
+    public function __construct()
+    {
+        $this->cursusContents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -156,6 +168,36 @@ class Cours
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CursusContent[]
+     */
+    public function getCursusContents(): Collection
+    {
+        return $this->cursusContents;
+    }
+
+    public function addCursusContent(CursusContent $cursusContent): self
+    {
+        if (!$this->cursusContents->contains($cursusContent)) {
+            $this->cursusContents[] = $cursusContent;
+            $cursusContent->setCoursId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCursusContent(CursusContent $cursusContent): self
+    {
+        if ($this->cursusContents->removeElement($cursusContent)) {
+            // set the owning side to null (unless already changed)
+            if ($cursusContent->getCoursId() === $this) {
+                $cursusContent->setCoursId(null);
+            }
+        }
 
         return $this;
     }
