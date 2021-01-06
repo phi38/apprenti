@@ -7,8 +7,13 @@ use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class CursusFixtures extends Fixture
+
+
+class CursusFixtures  extends Fixture
 {
+
+    public const CURSUS_REFERENCE = 'user-gary';
+
     public function load(ObjectManager $manager)
     {
         for ($count = 0; $count < 20; $count++) {
@@ -21,9 +26,11 @@ class CursusFixtures extends Fixture
             $newItem->setPoints(100);
             $newItem->setLastupdate( new DateTimeImmutable());
             $newItem->setTheme("Découverte");
-            
+
+
             $manager->persist($newItem);
         }
         $manager->flush();
     }
+
 }
