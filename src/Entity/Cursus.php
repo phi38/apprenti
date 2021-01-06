@@ -211,7 +211,7 @@ class Cursus
     {
         if (!$this->cursusContents->contains($cursusContent)) {
             $this->cursusContents[] = $cursusContent;
-            $cursusContent->setCursusId($this);
+            $cursusContent->setCursus($this);
         }
 
         return $this;
@@ -221,8 +221,8 @@ class Cursus
     {
         if ($this->cursusContents->removeElement($cursusContent)) {
             // set the owning side to null (unless already changed)
-            if ($cursusContent->getCursusId() === $this) {
-                $cursusContent->setCursusId(null);
+            if ($cursusContent->getCursus() === $this) {
+                $cursusContent->setCursus(null);
             }
         }
 

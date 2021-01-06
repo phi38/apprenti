@@ -7,6 +7,7 @@ use App\Repository\ProfilRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
@@ -21,7 +22,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
  *          "put" ={"path"="/profil/{id}"}
  *      }
  * )
-* @ApiFilter(DateFilter::class, properties={"lastupdate"})
+ * @ApiFilter(SearchFilter::class,  properties={"level":"exact"})
+ * @ApiFilter(DateFilter::class, properties={"lastupdate":"strictly_after"})
  */
 class Profil
 {

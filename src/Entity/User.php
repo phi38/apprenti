@@ -193,8 +193,8 @@ class User implements UserInterface
     public function setProfil(Profil $profil): self
     {
         // set the owning side of the relation if necessary
-        if ($profil->getUserId() !== $this) {
-            $profil->setUserId($this);
+        if ($profil->getUser() !== $this) {
+            $profil->setUser($this);
         }
 
         $this->profil = $profil;
@@ -214,7 +214,7 @@ class User implements UserInterface
     {
         if (!$this->cursusFollowed->contains($cursusFollowed)) {
             $this->cursusFollowed[] = $cursusFollowed;
-            $cursusFollowed->setUserId($this);
+            $cursusFollowed->setUser($this);
         }
 
         return $this;
@@ -224,8 +224,8 @@ class User implements UserInterface
     {
         if ($this->cursusFollowed->removeElement($cursusFollowed)) {
             // set the owning side to null (unless already changed)
-            if ($cursusFollowed->getUserId() === $this) {
-                $cursusFollowed->setUserId(null);
+            if ($cursusFollowed->getUser() === $this) {
+                $cursusFollowed->setUser(null);
             }
         }
 
