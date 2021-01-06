@@ -30,13 +30,13 @@ class CursusFollowed
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cursusFollowed")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userId;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cursus::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $cursusId;
+    private $cursus;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -53,26 +53,26 @@ class CursusFollowed
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): self
+    public function setUser(?User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getCursusId(): ?Cursus
+    public function getCursus(): ?Cursus
     {
-        return $this->cursusId;
+        return $this->cursus;
     }
 
-    public function setCursusId(?Cursus $cursusId): self
+    public function setCursus(?Cursus $cursus): self
     {
-        $this->cursusId = $cursusId;
+        $this->cursus = $cursus;
 
         return $this;
     }

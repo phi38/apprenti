@@ -35,13 +35,13 @@ class CursusContent
      * @ORM\ManyToOne(targetEntity=Cursus::class, inversedBy="cursusContents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $cursusId;
+    private $cursus;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="cursusContents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $coursId;
+    private $cours;
 
     public function getId(): ?int
     {
@@ -60,26 +60,26 @@ class CursusContent
         return $this;
     }
 
-    public function getCursusId(): ?Cursus
+    public function getCursus(): ?Cursus
     {
-        return $this->cursusId;
+        return $this->cursus;
     }
 
-    public function setCursusId(?Cursus $cursusId): self
+    public function setCursus(?Cursus $cursus): self
     {
-        $this->cursusId = $cursusId;
+        $this->cursus = $cursus;
 
         return $this;
     }
 
-    public function getCoursId(): ?Cours
+    public function getCours(): ?Cours
     {
-        return $this->coursId;
+        return $this->cours;
     }
 
-    public function setCoursId(?Cours $coursId): self
+    public function setCours(?Cours $cours): self
     {
-        $this->coursId = $coursId;
+        $this->cours = $cours;
 
         return $this;
     }
