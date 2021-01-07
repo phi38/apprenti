@@ -34,7 +34,7 @@ class CoursFixtures extends Fixture
         $newprofile->setLevel(2);
         $newprofile->setDescription("ma description");
         $newprofile->setLastupdate(new DateTimeImmutable());
-        $newprofile->setUser($newuser);
+        $newprofile->setOwner($newuser);
         $manager->persist($newprofile);
 
   
@@ -73,7 +73,7 @@ class CoursFixtures extends Fixture
 
         $newCursusFollowed = new CursusFollowed();
         $newCursusFollowed->setCursus($newCursus);
-        $newCursusFollowed->setUser($newuser);
+        $newCursusFollowed->setProfil($newprofile);
         $newCursusFollowed->setStartDate( new DateTimeImmutable());
         $manager->persist($newCursusFollowed);
         $manager->flush();

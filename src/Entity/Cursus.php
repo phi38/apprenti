@@ -74,7 +74,7 @@ class Cursus
     private $subtitle;
 
     /**
-     * @ORM\OneToMany(targetEntity=CursusContent::class, mappedBy="cursusId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=CursusContent::class, mappedBy="cursus", orphanRemoval=true)
      */
     private $cursusContents;
 

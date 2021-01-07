@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
         $newItem2->setLevel(2);
         $newItem2->setDescription("ma description");
         $newItem2->setLastupdate(new DateTimeImmutable());
-        $newItem2->setUser($newItem);
+        $newItem2->setOwner($newItem);
         $manager->persist($newItem2);
 
         $manager->flush();

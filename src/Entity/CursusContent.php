@@ -38,7 +38,7 @@ class CursusContent
     private $cursus;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="cursusContents")
+     * @ORM\ManyToOne(targetEntity=Cours::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $cours;

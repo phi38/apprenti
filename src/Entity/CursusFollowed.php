@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Cursus;
+use App\Entity\Profil;
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CursusFollowedRepository;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
@@ -27,10 +29,10 @@ class CursusFollowed
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cursusFollowed")
+     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="cursusFollowed")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $profil;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cursus::class)
@@ -53,14 +55,14 @@ class CursusFollowed
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getProfil(): ?Profil
     {
-        return $this->user;
+        return $this->profil;
     }
 
-    public function setUser(?User $user): self
+    public function setProfil(?Profil $profil): self
     {
-        $this->user = $user;
+        $this->profil = $profil;
 
         return $this;
     }

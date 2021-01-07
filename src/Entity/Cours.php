@@ -169,34 +169,4 @@ class Cours
 
         return $this;
     }
-
-    /**
-     * @return Collection|CursusContent[]
-     */
-    public function getCursusContents(): Collection
-    {
-        return $this->cursusContents;
-    }
-
-    public function addCursusContent(CursusContent $cursusContent): self
-    {
-        if (!$this->cursusContents->contains($cursusContent)) {
-            $this->cursusContents[] = $cursusContent;
-            $cursusContent->setCoursId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCursusContent(CursusContent $cursusContent): self
-    {
-        if ($this->cursusContents->removeElement($cursusContent)) {
-            // set the owning side to null (unless already changed)
-            if ($cursusContent->getCoursId() === $this) {
-                $cursusContent->setCoursId(null);
-            }
-        }
-
-        return $this;
-    }
 }

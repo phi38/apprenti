@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
+use App\Entity\CursusFollowed;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProfilRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -83,12 +87,56 @@ class Profil
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="profil", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $owner;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $lastupdate;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity=CursusFollowed::class, mappedBy="profil", orphanRemoval=true)
+     */
+    private $cursusFollowed;
+
+
+    public function __construct()
+    {
+        $this->cursusFollowed = new ArrayCollection();
+    }
+
+
+    /**
+     * @return Collection|CursusFollowed[]
+     */
+    public function getCursusFollowed(): Collection
+    {
+        return $this->cursusFollowed;
+    }
+
+    public function addCursusFollowed(CursusFollowed $cursusFollowed): self
+    {
+        if (!$this->cursusFollowed->contains($cursusFollowed)) {
+            $this->cursusFollowed[] = $cursusFollowed;
+            $cursusFollowed->setProfil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCursusFollowed(CursusFollowed $cursusFollowed): self
+    {
+        if ($this->cursusFollowed->removeElement($cursusFollowed)) {
+            // set the owning side to null (unless already changed)
+            if ($cursusFollowed->getProfil() === $this) {
+                $cursusFollowed->setProfil(null);
+            }
+        }
+
+        return $this;
+    }
+    
 
     public function getId(): ?int
     {
@@ -167,14 +215,14 @@ class Profil
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getOwner(): ?User
     {
-        return $this->user;
+        return $this->owner;
     }
 
-    public function setUser(User $user): self
+    public function setOwner(User $owner): self
     {
-        $this->user = $user;
+        $this->owner = $owner;
 
         return $this;
     }

@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Profil;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -17,12 +16,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ApiResource(
  *      collectionOperations={
- *          "post" ={"path"="/apprenti"},
+ *          "post"={
+ *                 "normalizationContext"={"groups"={"apprenti:read","apprenti:write"}} ,
+ *                  "denormalizationContext"={"groups"={"apprenti:write"}, "swagger_definition_name"="Write"},
+ *              }
  *      }, 
  *      itemOperations={
  *          "put" ={
- *                  "path"="/apprenti/{id}",
  *                  "normalizationContext"={"groups"={"apprenti:read","apprenti:write"}} 
+ *                  },
+ *          "get"={
+ *                  "normalizationContext"={"groups"={"apprenti:read"}} 
  *                  }
  *      },
  *      normalizationContext={"groups"={"apprenti:read"}, "swagger_definition_name"="Read"},
@@ -36,6 +40,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"apprenti:read"})
      */
     private $id;
 
@@ -63,19 +68,9 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="userId", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="owner", cascade={"persist", "remove"})
      */
     private $profil;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CursusFollowed::class, mappedBy="userId", orphanRemoval=true)
-     */
-    private $cursusFollowed;
-
-    public function __construct()
-    {
-        $this->cursusFollowed = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -176,41 +171,11 @@ class User implements UserInterface
     public function setProfil(Profil $profil): self
     {
         // set the owning side of the relation if necessary
-        if ($profil->getUser() !== $this) {
-            $profil->setUser($this);
+        if ($profil->getOwner() !== $this) {
+            $profil->setOwner($this);
         }
 
         $this->profil = $profil;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CursusFollowed[]
-     */
-    public function getCursusFollowed(): Collection
-    {
-        return $this->cursusFollowed;
-    }
-
-    public function addCursusFollowed(CursusFollowed $cursusFollowed): self
-    {
-        if (!$this->cursusFollowed->contains($cursusFollowed)) {
-            $this->cursusFollowed[] = $cursusFollowed;
-            $cursusFollowed->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCursusFollowed(CursusFollowed $cursusFollowed): self
-    {
-        if ($this->cursusFollowed->removeElement($cursusFollowed)) {
-            // set the owning side to null (unless already changed)
-            if ($cursusFollowed->getUser() === $this) {
-                $cursusFollowed->setUser(null);
-            }
-        }
 
         return $this;
     }
