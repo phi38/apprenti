@@ -58,12 +58,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
-     * @Groups({"apprenti:write","apprenti:read"})
-     */
-    private $pseudo;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
@@ -161,17 +155,6 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
 
     public function isVerified(): bool
     {

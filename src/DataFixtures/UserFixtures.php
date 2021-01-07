@@ -15,12 +15,13 @@ class UserFixtures extends Fixture
         $newItem = new User();
         $newItem->setemail("pcottaz@yahoo.fr");
         $newItem->setPassword("Titre ");
-        $newItem->setPseudo("Phil");
+
         $newItem->setIsVerified(true);
         
         $manager->persist($newItem);
 
         $newItem2 = new Profil();
+        $newItem2->setPseudo("Phil");
         $newItem2->setLevel(2);
         $newItem2->setDescription("ma description");
         $newItem2->setLastupdate(new DateTimeImmutable());

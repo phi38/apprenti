@@ -75,6 +75,11 @@ class Profil
      */
     private $lastupdate;
 
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    private $pseudo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -172,6 +177,18 @@ class Profil
     public function setLastupdate(\DateTimeImmutable $lastupdate): self
     {
         $this->lastupdate = $lastupdate;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
