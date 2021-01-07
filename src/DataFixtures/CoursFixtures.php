@@ -24,12 +24,13 @@ class CoursFixtures extends Fixture
         $newuser = new User();
         $newuser->setemail("superAdmin@yahoo.fr");
         $newuser->setPassword("superAdmin ");
-        $newuser->setPseudo("superAdmin");
+
         $newuser->setIsVerified(true);
         
         $manager->persist($newuser);
 
         $newprofile = new Profil();
+        $newprofile->setPseudo("superAdmin");
         $newprofile->setLevel(2);
         $newprofile->setDescription("ma description");
         $newprofile->setLastupdate(new DateTimeImmutable());

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProfilRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
@@ -13,12 +14,13 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
  * @ApiResource(
  *  collectionOperations={
- *          "get" ={"path"="/profil"}
+ *          "get" ={
+ *              "path"="/profil",
+ *              "normalizationContext"={"groups"={"profil-simple:read","profil-detail:read"}} 
+ *             }
  *      }, 
  *  itemOperations={
- *          "get" ={"path"="/profil/{id}"}
- *      },
- *  itemOperations={
+ *          "get" ={"path"="/profil/{id}"},
  *          "put" ={"path"="/profil/{id}"}
  *      }
  * )
@@ -31,11 +33,21 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"profil-simple:read"})
      */
     private $id;
 
+    
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     * @Groups({"profil-simple:read"})
+     */
+    private $pseudo;
+
+
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"profil-simple:read"})
      */
     private $level;
 
@@ -46,16 +58,19 @@ class Profil
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"profil-detail:read"})
      */
     private $equipment;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"profil-detail:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"profil-detail:read"})
      */
     private $objectif;
 
@@ -74,11 +89,6 @@ class Profil
      * @ORM\Column(type="datetime_immutable")
      */
     private $lastupdate;
-
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
-    private $pseudo;
 
     public function getId(): ?int
     {
