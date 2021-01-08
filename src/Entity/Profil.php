@@ -20,13 +20,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *  collectionOperations={
  *          "get" ={
  *              "path"="/profil",
- *              "normalizationContext"={"groups"={"profil-simple:read","profil-detail:read"}} 
+ *              "normalizationContext"={"groups"={"profil-simple:read"}} 
  *             }
  *      }, 
  *  itemOperations={
- *          "get" ={"path"="/profil/{id}"},
+ *          "get" ={
+ *              "path"="/profil/{id}",
+ *              "normalizationContext"={"groups"={"profil-si:read", "profil-detail:read"}} 
+ *              },
  *          "put" ={"path"="/profil/{id}"}
- *      }
+ *      },
+ *  normalizationContext={"groups"={"profil-simple:read"}, "swagger_definition_name"="Read"},
+ *  denormalizationContext={"groups"={"profil-simple:write"}, "swagger_definition_name"="Write"},
  * )
  * @ApiFilter(SearchFilter::class,  properties={"level":"exact"})
  * @ApiFilter(DateFilter::class, properties={"lastupdate":"strictly_after"})
@@ -50,7 +55,7 @@ class Profil
 
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"profil-simple:read"})
      */
     private $level;
@@ -90,7 +95,7 @@ class Profil
     private $owner;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $lastupdate;
 
