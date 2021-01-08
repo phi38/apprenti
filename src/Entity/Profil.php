@@ -20,18 +20,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *  collectionOperations={
  *          "get" ={
  *              "path"="/profil",
- *              "normalizationContext"={"groups"={"profil-simple:read"}} 
+ *              "normalization_context"={"groups"={"profilsimple:read"}} 
  *             }
  *      }, 
  *  itemOperations={
  *          "get" ={
  *              "path"="/profil/{id}",
- *              "normalizationContext"={"groups"={"profil-si:read", "profil-detail:read"}} 
+ *              "normalization_context"={"groups"={ "profil-detail:read", "profilsimple:read"}} 
  *              },
- *          "put" ={"path"="/profil/{id}"}
+ *          "put" ={
+ *              "path"="/profil/{id}"
+ *             }
  *      },
- *  normalizationContext={"groups"={"profil-simple:read"}, "swagger_definition_name"="Read"},
- *  denormalizationContext={"groups"={"profil-simple:write"}, "swagger_definition_name"="Write"},
  * )
  * @ApiFilter(SearchFilter::class,  properties={"level":"exact"})
  * @ApiFilter(DateFilter::class, properties={"lastupdate":"strictly_after"})
@@ -42,21 +42,21 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"profil-simple:read"})
+     * @Groups({"profilsimple:read"})
      */
     private $id;
 
     
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
-     * @Groups({"profil-simple:read"})
+     * @Groups({"profilsimple:read"})
      */
     private $pseudo;
 
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"profil-simple:read"})
+     * @Groups({"profilsimple:read"})
      */
     private $level;
 

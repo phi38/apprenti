@@ -17,19 +17,21 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiResource(
  *      collectionOperations={
  *          "post"={
- *                 "normalizationContext"={"groups"={"apprenti:read","apprenti:write"}} ,
- *                  "denormalizationContext"={"groups"={"apprenti:write"}, "swagger_definition_name"="Write"},
+ *                 "path"="/apprenti/{id}",
+ *                 "normalization_context"={"groups"={"apprenti:read","apprenti:write"}} ,
+ *                  "denormalization_Context"={"groups"={"apprenti:write"}, "swagger_definition_name"="Write"},
  *              }
  *      }, 
  *      itemOperations={
  *          "put" ={
- *                  "normalizationContext"={"groups"={"apprenti:read","apprenti:write"}} 
+ *                  "path"="/apprenti/{id}",
+ *                  "normalization_context"={"groups"={"apprenti:read","apprenti:write"}} 
  *                  },
  *          "get"={
- *                  "normalizationContext"={"groups"={"apprenti:read"}} 
+ *                  "path"="/apprenti/{id}",
+ *                  "normalization_context"={"groups"={"apprenti:read"}} 
  *                  }
  *      },
- *      normalizationContext={"groups"={"apprenti:read"}, "swagger_definition_name"="Read"},
  *      denormalizationContext={"groups"={"apprenti:write"}, "swagger_definition_name"="Write"},
  *      shortName="Apprenti"
  * )
