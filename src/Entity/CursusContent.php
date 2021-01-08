@@ -2,18 +2,31 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+
 use App\Repository\CursusContentRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ORM\Entity(repositoryClass=CursusContentRepository::class)
  * @ApiResource(
  *  collectionOperations={
- *          "get" ={"path"="/cursusContent"}
+ *          "get" ={
+ *              "path"="/cursusContent",
+ *               "normalization_context"={"groups"={"cursusContentsimple:read"}} 
+ *              }
  *      }, 
  *  itemOperations={
- *          "get" ={"path"="/cursusContent/{id}"}
+ *          "get" ={
+ *              "path"="/cursusContent/{id}",
+ *              "normalization_context"={"groups"={"cursusContentdetail:read","cursusContentsimple:read"}} 
+ *              }
  *      }
  * )
  */
@@ -23,23 +36,30 @@ class CursusContent
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("cursusContentsimple:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("cursusContentsimple:read")
      */
     private $position;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cursus::class, inversedBy="cursusContents")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("cursusContentdetail:read")
      */
     private $cursus;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cours::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("cursusContentdetail:read")
      */
     private $cours;
 

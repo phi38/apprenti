@@ -5,19 +5,35 @@ namespace App\Entity;
 use App\Entity\Cursus;
 use App\Entity\Profil;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CursusFollowedRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
  * @ApiResource(
  *  collectionOperations={
- *          "get" ={"path"="/cursusFollowed"}
+ *          "get" ={
+ *              "path"="/cursusFollowed",
+ *               "normalization_context"={"groups"={"cursusFollowedsimple:read"}} 
+ *              }
  *      }, 
  *  itemOperations={
- *          "get" ={"path"="/cursusFollowed/{id}"}
+ *          "get" ={
+ *              "path"="/cursusFollowed/{id}",
+ *              "normalization_context"={"groups"={"cursusFolloweddetail:read","cursusFollowedsimple:read"}} 
+ *              }
  *      }
  * )
+ * 
  */
 class CursusFollowed
 {
@@ -25,28 +41,33 @@ class CursusFollowed
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("cursusFollowedsimple:read")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="cursusFollowed")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("cursusFollowedsimple:read")
      */
     private $profil;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cursus::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("cursusFollowedsimple:read")
      */
     private $cursus;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups("cursusFollowedsimple:read")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups("cursusFollowedsimple:read")
      */
     private $endDate;
 

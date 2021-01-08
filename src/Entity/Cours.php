@@ -2,20 +2,32 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CoursRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CoursRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 
 /**
  * @ORM\Entity(repositoryClass=CoursRepository::class)
  * @ApiResource(
  *  collectionOperations={
- *          "get" ={"path"="/cours"}
+ *          "get" ={
+ *              "path"="/cours",
+ *               "normalization_context"={"groups"={"courssimple:read"}} 
+ *              }
  *      }, 
  *  itemOperations={
- *          "get" ={"path"="/cours/{id}"}
+ *          "get" ={
+ *              "path"="/cours/{id}",
+ *              "normalization_context"={"groups"={"coursdetail:read","courssimple:read"}} 
+ *              }
  *      }
  * )
  */
@@ -30,41 +42,56 @@ class Cours
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("courssimple:read")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("coursdetail:read")
      */
     private $subtitle;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("courssimple:read")
      */
     private $level;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("courssimple:read")
      */
     private $theme;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("courssimple:read")
      */
     private $type;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("coursprivate:read")
      */
     private $content = [];
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
+     *  @Groups({"coursimple:read"})
      */
     private $lastupdate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("coursdetail:read")
      */
     private $description;
 
@@ -168,5 +195,36 @@ class Cours
         $this->description = $description;
 
         return $this;
+    }
+
+     /**
+     * How long ago in text that this cheese listing was added.
+     *
+     * @Groups("courssimple:read")
+     * 
+     */
+    public function getNbComments(): ?int
+    {
+        return 10;
+    }
+
+    /**
+     * How long ago in text that this cheese listing was added.
+     *
+     * @Groups("courssimple:read")
+     */
+    public function getNotation(): int
+    {
+        return 5;
+    }
+
+    /**
+     * How long ago in text that this cheese listing was added.
+     *
+     * @Groups("courssimple:read")
+     */
+    public function getNbrecord(): int
+    {
+        return 5;
     }
 }
