@@ -37,7 +37,7 @@ class CursusContent
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("cursusContentsimple:read")
+     * @Groups({"cursusContentsimple:read","cursusFolloweddetail:read"})
      */
     private $id;
 
@@ -59,7 +59,7 @@ class CursusContent
     /**
      * @ORM\ManyToOne(targetEntity=Cours::class)
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("cursusContentdetail:read")
+     * @Groups({"cursusContentdetail:read","cursusFolloweddetail:read"})
      */
     private $cours;
 

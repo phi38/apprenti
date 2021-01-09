@@ -42,7 +42,7 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"profilsimple:read"})
+     * @Groups({"profilsimple:read","cursusFollowedsimple:read","cursusFolloweddetail:read"})
      */
     private $id;
 

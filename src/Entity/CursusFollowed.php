@@ -20,20 +20,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
  * @ApiResource(
+ *  attributes={"filters"={"cursusfollowed.search_filter"}},
  *  collectionOperations={
  *          "get" ={
  *              "path"="/cursusFollowed",
- *               "normalization_context"={"groups"={"cursusFollowedsimple:read"}} 
+ *               "normalization_context"={"groups"={"cursusFolloweddetail:read","cursusFollowedsimple:read"}} 
  *              }
  *      }, 
- *  itemOperations={
- *          "get" ={
- *              "path"="/cursusFollowed/{id}",
- *              "normalization_context"={"groups"={"cursusFolloweddetail:read","cursusFollowedsimple:read"}} 
- *              }
- *      }
  * )
- * 
  */
 class CursusFollowed
 {
@@ -48,14 +42,14 @@ class CursusFollowed
     /**
      * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="cursusFollowed")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("cursusFollowedsimple:read")
+     * @Groups({"cursusFollowedsimple:read","cursusFolloweddetail:read"})
      */
     private $profil;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cursus::class)
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("cursusFollowedsimple:read")
+     * @Groups({"cursusFollowedsimple:read","cursusFolloweddetail:read"})
      */
     private $cursus;
 

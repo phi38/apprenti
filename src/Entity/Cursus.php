@@ -42,70 +42,70 @@ class Cursus
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read","cursusFollowedsimple:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read","cursusFollowedsimple:read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read","cursusFollowedsimple:read"})
      */
     private $level;
 
     /**
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read"})
      */
     private $rights;
 
     /**
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read","cursusFollowedsimple:read"})
      */
     private $points;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read"})
      */
     private $lastupdate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read"})
      */
     private $theme;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"cursussimple:read"})
+     * @Groups({"cursussimple:read","cursusFolloweddetail:read"})
      */
     private $subtitle;
 
     /**
      * @ORM\OneToMany(targetEntity=CursusContent::class, mappedBy="cursus", orphanRemoval=true)
      * 
-     * @Groups({"cursusdetail:read"})
+     * @Groups({"cursusdetail:read","cursusFolloweddetail:read"})
      */
     private $cursusContents;
 

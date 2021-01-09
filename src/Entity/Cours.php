@@ -26,7 +26,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *  itemOperations={
  *          "get" ={
  *              "path"="/cours/{id}",
- *              "normalization_context"={"groups"={"coursdetail:read","courssimple:read"}} 
+ *              "normalization_context"={"groups"={"coursdetail:read","courssimple:read"}} ,
+ *              "access_control"="is_granted('VIEW', previous_object)",
  *              }
  *      }
  * )
@@ -37,13 +38,14 @@ class Cours
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"courssimple:read","cursusFolloweddetail:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups("courssimple:read")
+     * @Groups({"courssimple:read","cursusFolloweddetail:read"})
      */
     private $title;
 
@@ -71,13 +73,13 @@ class Cours
     /**
      * @ORM\Column(type="integer")
      * 
-     * @Groups("courssimple:read")
+     * @Groups({"courssimple:read","cursusFolloweddetail:read"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("coursprivate:read")
+     * @Groups("cursusFolloweddetail:read")
      */
     private $content = [];
 
