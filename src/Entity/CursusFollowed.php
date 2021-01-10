@@ -26,9 +26,13 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *              "path"="/cursusFollowed",
  *               "normalization_context"={"groups"={"cursusFolloweddetail:read","cursusFollowedsimple:read"}} 
  *              }
- *      },
+ *      }, 
  *  itemOperations={
- *      }
+ *          "get" ={
+ *              "path"="/cursusFollowed/{id}",
+ *               "normalization_context"={"groups"={"EMPTY"}} 
+ *              }
+ *      }, 
  * )
  */
 class CursusFollowed

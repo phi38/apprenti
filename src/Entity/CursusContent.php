@@ -29,6 +29,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *              }
  *      }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"cours": "exact"})
  */
 class CursusContent
 {
