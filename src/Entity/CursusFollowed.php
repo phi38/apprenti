@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Cursus;
 use App\Entity\Profil;
+use App\Annotation\UserAware;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CursusFollowedRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\CursusFollowedRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
@@ -19,7 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
- * @ApiResource(
+  * @ApiResource(
  *  attributes={"filters"={"cursusfollowed.search_filter"},"pagination_enabled"=false},
  *  collectionOperations={
  *          "get" ={

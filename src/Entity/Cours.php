@@ -27,7 +27,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *          "get" ={
  *              "path"="/cours/{id}",
  *              "normalization_context"={"groups"={"coursdetail:read","courssimple:read"}} ,
- *              "access_control"="is_granted('VIEW', previous_object)",
  *              }
  *      }
  * )

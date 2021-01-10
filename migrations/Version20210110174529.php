@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210107135350 extends AbstractMigration
+final class Version20210110174529 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -41,7 +41,7 @@ final class Version20210107135350 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN cursus_followed.start_date IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN cursus_followed.end_date IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE "group" (id INT NOT NULL, name VARCHAR(255) NOT NULL, theme VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE profil (id INT NOT NULL, owner_id INT NOT NULL, pseudo VARCHAR(60) DEFAULT NULL, level INT NOT NULL, postal_code VARCHAR(8) DEFAULT NULL, equipment TEXT DEFAULT NULL, description TEXT DEFAULT NULL, objectif TEXT DEFAULT NULL, objectif_list TEXT DEFAULT NULL, lastupdate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE profil (id INT NOT NULL, owner_id INT NOT NULL, pseudo VARCHAR(60) DEFAULT NULL, level INT DEFAULT NULL, postal_code VARCHAR(8) DEFAULT NULL, equipment TEXT DEFAULT NULL, description TEXT DEFAULT NULL, objectif TEXT DEFAULT NULL, objectif_list TEXT DEFAULT NULL, lastupdate TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_E6D6B2977E3C61F9 ON profil (owner_id)');
         $this->addSql('COMMENT ON COLUMN profil.objectif_list IS \'(DC2Type:simple_array)\'');
         $this->addSql('COMMENT ON COLUMN profil.lastupdate IS \'(DC2Type:datetime_immutable)\'');
@@ -49,7 +49,8 @@ final class Version20210107135350 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_7CE748AA76ED395 ON reset_password_request (user_id)');
         $this->addSql('COMMENT ON COLUMN reset_password_request.requested_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN reset_password_request.expires_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE "user" (id INT NOT NULL, username VARCHAR(25) NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649F85E0677 ON "user" (username)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON "user" (email)');
         $this->addSql('ALTER TABLE cursus_content ADD CONSTRAINT FK_1F8C884A40AEF4B9 FOREIGN KEY (cursus_id) REFERENCES cursus (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE cursus_content ADD CONSTRAINT FK_1F8C884A7ECF78B0 FOREIGN KEY (cours_id) REFERENCES cours (id) NOT DEFERRABLE INITIALLY IMMEDIATE');

@@ -12,7 +12,7 @@ class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $newItem = new User();
+        $newItem = new User("pcottaz@yahoo.fr");
         $newItem->setemail("pcottaz@yahoo.fr");
         $newItem->setPassword("Titre ");
 

@@ -22,7 +22,7 @@ class CoursFixtures extends Fixture
                 'partition'=> "YY".$usernum,
             );
 
-            $newuser = new User();
+            $newuser = new User("".$usernum."superAdmin@yahoo.fr");
             $newuser->setemail("".$usernum."superAdmin@yahoo.fr");
             $newuser->setPassword("superAdmin ");
             $newuser->setIsVerified(true);      
