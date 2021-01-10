@@ -20,7 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
  * @ApiResource(
- *  attributes={"filters"={"cursusfollowed.search_filter"}},
+ *  attributes={"filters"={"cursusfollowed.search_filter"},"pagination_enabled"=false},
  *  collectionOperations={
  *          "get" ={
  *              "path"="/cursusFollowed",
