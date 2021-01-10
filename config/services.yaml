@@ -35,3 +35,5 @@ services:
           - { profil.id: 'exact' }
       tags:
           - { name: 'api_platform.filter', id: 'cursusfollowed.search_filter' }
+      autowire:      false # required, explained below
+      autoconfigure: false # required, explained below

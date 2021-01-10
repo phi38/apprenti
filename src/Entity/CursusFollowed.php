@@ -30,7 +30,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *  itemOperations={
  *          "get" ={
  *              "path"="/cursusFollowed/{id}",
- *               "normalization_context"={"groups"={"EMPTY"}} 
+ *               "normalization_context"={"groups"={"EMPTY"}},
  *              }
  *      }, 
  * )
