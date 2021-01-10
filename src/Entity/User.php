@@ -18,14 +18,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      collectionOperations={
  *          "post"={
  *                 "path"="/apprenti/{id}",
- *                 "normalization_context"={"groups"={"apprenti:read","apprenti:write"}} ,
- *                  "denormalization_Context"={"groups"={"apprenti:write"}, "swagger_definition_name"="Write"},
+ *                 "normalization_context"={"groups"={"apprenti:read","apprenti:write","apprenti:create"}} ,
+ *                  "denormalization_context"={"groups"={"apprenti:write","apprenti:create"}, "swagger_definition_name"="Write"},
  *              }
  *      }, 
  *      itemOperations={
  *          "put" ={
  *                  "path"="/apprenti/{id}",
- *                  "normalization_context"={"groups"={"apprenti:read","apprenti:write"}} 
+ *                  "normalization_context"={"groups"={"apprenti:read","apprenti:write"}} ,
+ *                  "denormalization_context"={"groups"={"apprenti:write"}, "swagger_definition_name"="Write"},
  *                  },
  *          "get"={
  *                  "path"="/apprenti/{id}",
@@ -48,7 +49,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"apprenti:write"})
+     * @Groups({"apprenti:create"})
      */
     private $email;
 
