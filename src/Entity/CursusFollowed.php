@@ -22,7 +22,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * Secured resource.
  * 
  * @ApiResource(
- *  attributes={"filters"={"cursusfollowed.search_filter"},"pagination_enabled"=false},
+ *  attributes={"pagination_enabled"=false},
  *  collectionOperations={
  *          "get" ={
  *              "path"="/cursusFollowed",               
