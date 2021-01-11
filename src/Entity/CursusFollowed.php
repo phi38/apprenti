@@ -19,22 +19,26 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 
 /**
- * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
-  * @ApiResource(
+ * Secured resource.
+ * 
+ * @ApiResource(
  *  attributes={"filters"={"cursusfollowed.search_filter"},"pagination_enabled"=false},
  *  collectionOperations={
  *          "get" ={
- *              "path"="/cursusFollowed",
- *               "normalization_context"={"groups"={"cursusFolloweddetail:read","cursusFollowedsimple:read"}} 
+ *              "path"="/cursusFollowed",               
+ *              "normalization_context"={"groups"={"cursusFollowedsimple:read"}} ,
  *              }
  *      }, 
  *  itemOperations={
  *          "get" ={
  *              "path"="/cursusFollowed/{id}",
- *               "normalization_context"={"groups"={"EMPTY"}},
+ *              "normalization_context"={"groups"={"cursusFolloweddetail:read","cursusFollowedsimple:read"}} ,
+ *              "security"="object.getOwner() == user",
  *              }
  *      }, 
  * )
+ * 
+ * @ORM\Entity(repositoryClass=CursusFollowedRepository::class)
  */
 class CursusFollowed
 {
@@ -85,8 +89,16 @@ class CursusFollowed
     public function setProfil(?Profil $profil): self
     {
         $this->profil = $profil;
-
         return $this;
+    }
+
+    
+    /*
+    * @Groups({"cursusFollowedsimple:read","cursusFolloweddetail:read"})
+    */
+    public function getOwner(): ?User
+    {
+        return $this->profil->getOwner();
     }
 
     public function getCursus(): ?Cursus
