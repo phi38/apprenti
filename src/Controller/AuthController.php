@@ -58,7 +58,10 @@ class AuthController extends AbstractController
         $em->persist($user);
         $em->persist($profil);
         $em->persist($connectedAt);
-        
+
+ //Ex. $service = $repository->findBy(array('name' => 'Registration'),array('name' => 'ASC'),1 ,0)[0];      
+ // $usersByRoleAndFirstname = $userRepo->findBy(["role" => "user", "firstname" => "First 2"]);
+ 
         $repository = $em->getRepository(Cursus::class);
         $newCursus = $repository->findOneBy(array('level' => -1 ));
         
