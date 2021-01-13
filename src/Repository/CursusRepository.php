@@ -36,15 +36,17 @@ class CursusRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Cursus
+    
+    public function findOneCursusApprentissage(): ?Cursus
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('c.level = :val')
+            ->andWhere('c.points = :val2')
+            ->setParameter('val', -1)
+            ->setParameter('val2', 0)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }
