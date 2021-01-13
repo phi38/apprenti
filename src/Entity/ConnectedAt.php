@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ConnectedAtRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ConnectedAtRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ConnectedAtRepository::class)
@@ -24,9 +25,10 @@ class ConnectedAt
     private $profil;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime_immutable")
      */
-    private $lastUpdate;
+    private $lastupdate;
+
 
     /**
      * @ORM\Column(type="string", length=255)
