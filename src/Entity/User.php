@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiResource(
  *      collectionOperations={
  *          "post"={
- *                 "path"="/apprenti/{id}",
+ *                 "path"="/apprenti",
  *                 "normalization_context"={"groups"={"apprenti:read","apprenti:write","apprenti:create"}} ,
  *                  "denormalization_context"={"groups"={"apprenti:write","apprenti:create"}, "swagger_definition_name"="Write"},
  *              }

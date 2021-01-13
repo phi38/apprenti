@@ -105,10 +105,16 @@ class Profil
      */
     private $cursusFollowed;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ConnectedAt::class, mappedBy="profil", orphanRemoval=true)
+     */
+    private $connectedAts;
+
 
     public function __construct()
     {
         $this->cursusFollowed = new ArrayCollection();
+        $this->connectedAts = new ArrayCollection();
     }
 
 
@@ -252,6 +258,36 @@ class Profil
     public function setPseudo(?string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConnectedAt[]
+     */
+    public function getConnectedAts(): Collection
+    {
+        return $this->connectedAts;
+    }
+
+    public function addConnectedAt(ConnectedAt $connectedAt): self
+    {
+        if (!$this->connectedAts->contains($connectedAt)) {
+            $this->connectedAts[] = $connectedAt;
+            $connectedAt->setProfil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConnectedAt(ConnectedAt $connectedAt): self
+    {
+        if ($this->connectedAts->removeElement($connectedAt)) {
+            // set the owning side to null (unless already changed)
+            if ($connectedAt->getProfil() === $this) {
+                $connectedAt->setProfil(null);
+            }
+        }
 
         return $this;
     }

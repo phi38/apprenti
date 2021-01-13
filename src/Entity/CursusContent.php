@@ -64,6 +64,11 @@ class CursusContent
      */
     private $cours;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $lastupdate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +106,18 @@ class CursusContent
     public function setCours(?Cours $cours): self
     {
         $this->cours = $cours;
+
+        return $this;
+    }
+
+    public function getLastupdate(): ?\DateTimeImmutable
+    {
+        return $this->lastupdate;
+    }
+
+    public function setLastupdate(?\DateTimeImmutable $lastupdate): self
+    {
+        $this->lastupdate = $lastupdate;
 
         return $this;
     }
