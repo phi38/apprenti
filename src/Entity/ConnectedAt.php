@@ -52,14 +52,14 @@ class ConnectedAt
         return $this;
     }
 
-    public function getLastUpdate(): ?\DateTimeInterface
+    public function getLastupdate(): ?\DateTimeImmutable
     {
-        return $this->lastUpdate;
+        return $this->lastupdate;
     }
 
-    public function setLastUpdate(\DateTimeInterface $lastUpdate): self
+    public function setLastupdate(\DateTimeImmutable $lastupdate): self
     {
-        $this->lastUpdate = $lastUpdate;
+        $this->lastupdate = $lastupdate;
 
         return $this;
     }

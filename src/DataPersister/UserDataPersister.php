@@ -26,10 +26,11 @@ class UserDataPersister implements DataPersisterInterface
      */
     public function persist($data)
     {
+        /*
         $data->setProfil( new Profil());
         $this->entityManager->persist($data);
         $this->entityManager->flush();
-    }
+    */}
 
     public function remove($data)
     {
