@@ -39,10 +39,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
-    public function __construct($username)
+    public function __construct($email)
     {
         $this->isActive = false;
-        $this->username = $username;
+        $this->email = $email;
     }
     
     /**
@@ -52,11 +52,6 @@ class User implements UserInterface
      * @Groups({"apprenti:read"})
      */
     private $id;
-    
-    /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
-    private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -110,7 +105,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     /**
