@@ -27,25 +27,34 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class AuthController extends AbstractController
 {
 
-
+    /**
+     * register a new User
+     */
     public function register(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $em = $this->getDoctrine()->getManager();
         //$username = $request->request->get('username');
+
         $email = $request->request->get('email');
         $password = $request->request->get('password');
         $roles = $request->request->get('roles');
-        $machine = $request->request->get('machine');
+        $machine = " dsdsq"; #$request->request->get('machine');
+        if ($email === null) {
+            $parameters = json_decode($request->getContent(), true);
+            $email =  $parameters['email'];
+            $machine =  "fdsfdsf"; #$parameters['machine'];
+            $password =  $parameters['password'];
+        }
 
         if (!$roles) {
             $roles = json_encode([]);
         }
 
         $user = new User($email);
-        $user->setEmail( $email );
+        $user->setEmail($email);
         $user->setPassword($encoder->encodePassword($user, $password));
         //$user->setRoles(($roles));
-  
+
         $profil = new Profil();
         $profil->setPseudo("");
         $user->setProfil($profil);
@@ -54,23 +63,23 @@ class AuthController extends AbstractController
         $connectedAt->setProfil($profil);
         $connectedAt->setMachine($machine);
         $connectedAt->setLastUpdate(new DateTimeImmutable());
-        
+
         $em->persist($user);
         $em->persist($profil);
         $em->persist($connectedAt);
 
- //Ex. $service = $repository->findBy(array('name' => 'Registration'),array('name' => 'ASC'),1 ,0)[0];      
- // $usersByRoleAndFirstname = $userRepo->findBy(["role" => "user", "firstname" => "First 2"]);
- 
+        //Ex. $service = $repository->findBy(array('name' => 'Registration'),array('name' => 'ASC'),1 ,0)[0];      
+        // $usersByRoleAndFirstname = $userRepo->findBy(["role" => "user", "firstname" => "First 2"]);
+        /*
         $repository = $em->getRepository(Cursus::class);
-        $newCursus = $repository->findOneBy(array('level' => -1 ));
-        
+        $newCursus = $repository->findOneBy(array('level' => -1));
+
         $newCursusFollowed = new CursusFollowed();
         $newCursusFollowed->setCursus($newCursus);
         $newCursusFollowed->setProfil($profil);
-        $newCursusFollowed->setStartDate( new DateTimeImmutable());
+        $newCursusFollowed->setStartDate(new DateTimeImmutable());
         $em->persist($newCursusFollowed);
-      
+*/
         $em->flush();
 
         return new Response(sprintf('User %s successfully created', $user->getUsername()));
